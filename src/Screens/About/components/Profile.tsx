@@ -17,19 +17,25 @@ const styles = StyleSheet.create({
   },
 })
 
-const Profile = () => {
+interface Props {
+  status: string
+  gender: string
+  uri: string
+}
+
+const Profile = ({ gender, status, uri }: Props) => {
   return (
     <>
       <Image
         style={styles.image}
         source={{
-          uri: "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
+          uri,
         }}
       />
       <View style={styles.container}>
-        <Border>Alive</Border>
+        <Border>{status}</Border>
         <View style={{ marginHorizontal: 8 }} />
-        <Border>Male</Border>
+        <Border>{gender}</Border>
       </View>
     </>
   )
