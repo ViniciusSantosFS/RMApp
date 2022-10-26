@@ -28,26 +28,6 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    },
-    "eslintConfig": {
-      "extends": "universe/native",
-      "rules": {},
-      "settings": {
-        "import/resolver": {
-          "node": {
-            "extensions": [
-              ".js",
-              ".jsx",
-              ".ts",
-              ".tsx"
-            ]
-          },
-          "babel-plugin-root-import": {
-            "rootPathPrefix": "~",
-            "rootPathSuffix": "src"
-          }
-        }
-      }
     }
   }
 }

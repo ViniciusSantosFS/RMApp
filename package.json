@@ -8,6 +8,26 @@
     "ios": "expo start --ios",
     "web": "expo start --web"
   },
+  "eslintConfig": {
+    "extends": "universe/native",
+    "rules": {},
+    "settings": {
+      "import/resolver": {
+        "node": {
+          "extensions": [
+            ".js",
+            ".jsx",
+            ".ts",
+            ".tsx"
+          ]
+        },
+        "babel-plugin-root-import": {
+          "rootPathPrefix": "~",
+          "rootPathSuffix": "src"
+        }
+      }
+    }
+  },
   "dependencies": {
     "@react-navigation/native": "^6.0.13",
     "@react-navigation/native-stack": "^6.9.1",
