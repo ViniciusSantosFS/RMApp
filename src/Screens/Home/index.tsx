@@ -1,17 +1,59 @@
-import React from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { View } from "react-native"
+import { getChars } from "~/services/characters/characters"
+import { Info, Result } from "~/services/characters/types"
+import { LoadingContext } from "~/contexts/LoadingContext"
+
+import useNavigation from "~/hooks/useNavigation"
 
 import Container from "~/components/Container"
 import Pagination from "~/components/Pagination"
 import SearchBar from "~/components/SearchBar"
 import Title from "~/components/Title"
-import useNavigation from "~/hooks/useNavigation"
 import CharactersList from "./Components/CharactersList"
-const json = require("../../mocks/chars.json")
+import useIsKeyboardOpen from "~/hooks/useIsKeyboardOpen"
 
 export default function Home() {
+  const loading = useContext(LoadingContext)
   const { handleNavigate } = useNavigation()
+  const isKeyboardOpen = useIsKeyboardOpen()
+
+  const [characters, setCharacters] = useState<Result[]>([])
+  const [filteredChars, setFilteredChars] = useState<Result[]>([])
+  const [currentInfo, setCurrentInfo] = useState<Info | null>()
+  const [page, setPage] = useState(1)
+
   const navigate = (id: number) => handleNavigate("Sobre", { id })
+  const handleIncrementPage = () => {
+    currentInfo && page < currentInfo.pages && setPage(page + 1)
+  }
+
+  const handleFilterCharacters = (name: string) => {
+    const filteredArray = characters.filter((char) => {
+      if (name === "") return
+      return char.name.toLocaleLowerCase().includes(name.toLocaleLowerCase())
+    })
+    return setFilteredChars(filteredArray)
+  }
+
+  const getCharsList = async () => {
+    try {
+      loading.enable()
+      const { results, info } = await getChars(page.toString())
+      setCharacters(results)
+      if (!currentInfo) setCurrentInfo(info)
+    } catch (error) {
+      throw new Error(error as keyof Error)
+    } finally {
+      loading.disable()
+    }
+  }
+
+  useEffect(() => {
+    getCharsList().catch((err) => {
+      console.log(err.message)
+    })
+  }, [page])
 
   return (
     <Container>
@@ -20,13 +62,29 @@ export default function Home() {
 
         <View style={{ marginVertical: 20 }} />
 
-        <SearchBar placeholder="Buscar por personagem" />
+        <SearchBar
+          placeholder="Buscar por personagem"
+          onChangeText={handleFilterCharacters}
+        />
       </View>
 
-      <CharactersList characters={json} handleNavigate={navigate} />
+      <CharactersList
+        characters={filteredChars.length > 0 ? filteredChars : characters}
+        handleNavigate={navigate}
+      />
 
-      <Pagination page={1} />
-      <View style={{ marginBottom: 40 }} />
+      {isKeyboardOpen ? (
+        <></>
+      ) : (
+        <View style={{ marginVertical: 20 }}>
+          <Pagination
+            page={page}
+            maxLimit={currentInfo?.pages ?? 0}
+            handleSelectPrevious={() => page > 1 && setPage(page - 1)}
+            handleSelectNext={handleIncrementPage}
+          />
+        </View>
+      )}
     </Container>
   )
 }
