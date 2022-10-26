@@ -1,10 +1,11 @@
 import React from "react"
 import { FlatList, View } from "react-native"
+import { Result } from "~/services/characters/types"
 import CharacterCard from "./CharacterCard"
 
 interface Props {
   handleNavigate: (id: number) => void
-  characters: any[]
+  characters: Result[]
 }
 
 const CharactersList = ({ characters, handleNavigate }: Props) => {
