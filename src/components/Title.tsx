@@ -1,6 +1,10 @@
 import { Text, StyleSheet } from "react-native"
 import { COLORS } from "~/globals/style"
 
+interface Props {
+  children: React.ReactNode
+}
+
 const styles = StyleSheet.create({
   title: {
     fontSize: 24,
@@ -8,10 +12,6 @@ const styles = StyleSheet.create({
     color: COLORS.darkBlue,
   },
 })
-
-interface Props {
-  children: React.ReactNode
-}
 
 const Title = ({ children }: Props) => {
   return <Text style={styles.title}>{children}</Text>

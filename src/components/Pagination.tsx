@@ -5,6 +5,9 @@ import { COLORS } from "~/globals/style"
 
 interface Props {
   page: number
+  maxLimit: number
+  handleSelectNext: () => void
+  handleSelectPrevious: () => void
 }
 
 const styles = StyleSheet.create({
@@ -22,16 +25,27 @@ const styles = StyleSheet.create({
   },
 })
 
-const Pagination = ({ page }: Props) => {
+const Pagination = ({
+  page,
+  maxLimit,
+  handleSelectNext,
+  handleSelectPrevious,
+}: Props) => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={{ opacity: page !== 1 ? 1 : 0.2 }}>
+      <TouchableOpacity
+        style={{ opacity: page === 1 ? 0.2 : 1 }}
+        onPress={handleSelectPrevious}
+      >
         <AntDesign name="left" size={28} color={COLORS.green} />
       </TouchableOpacity>
 
       <Text style={styles.title}>{page}</Text>
 
-      <TouchableOpacity>
+      <TouchableOpacity
+        onPress={handleSelectNext}
+        style={{ opacity: page === maxLimit ? 0.2 : 1 }}
+      >
         <AntDesign name="right" size={28} color={COLORS.green} />
       </TouchableOpacity>
     </View>

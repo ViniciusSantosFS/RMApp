@@ -2,6 +2,8 @@ import { View, TextInput, StyleSheet, TextInputProps } from "react-native"
 import { AntDesign } from "@expo/vector-icons"
 import { COLORS } from "~/globals/style"
 
+interface Props extends TextInputProps {}
+
 const styles = StyleSheet.create({
   searchSection: {
     flexDirection: "row",
@@ -20,8 +22,6 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
   },
 })
-
-interface Props extends TextInputProps {}
 
 const SearchBar = ({ ...rest }: Props) => {
   return (
