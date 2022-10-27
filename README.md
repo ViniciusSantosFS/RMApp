@@ -1,9 +1,6 @@
 #### Veja todas as imagens em /assets/prints/
 
 ![Overview](./assets/prints/overview.gif)
-![Rick](./assets/prints/character.jpeg)
-![Filtro](./assets/prints/filter.jpeg)
-![Personagens](./assets/prints/chars_list.jpeg)
 
 ##### Motivação para o projeto
 
@@ -51,3 +48,15 @@
   ```
   yarn ios
   ```
+
+#### Imagens
+
+![Rick](./assets/prints/character.jpeg)
+
+---
+
+![Filtro](./assets/prints/filter.jpeg)
+
+---
+
+![Personagens](./assets/prints/chars_list.jpeg)
