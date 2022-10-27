@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react"
 import { View } from "react-native"
 import { getChars } from "~/services/characters/characters"
 import { Info, Result } from "~/services/characters/types"
+import { errorHandler } from "~/utils/errorHandler"
 import { LoadingContext } from "~/contexts/LoadingContext"
 
 import Container from "~/components/Container"
@@ -47,7 +48,7 @@ export default function Home() {
 
   useEffect(() => {
     getCharsList().catch((err) => {
-      console.log(err.message)
+      errorHandler(err.message)
     })
   }, [page])
 

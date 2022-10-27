@@ -1,8 +1,9 @@
 import React from "react"
 import { FlatList, View } from "react-native"
+import { errorHandler } from "~/utils/errorHandler"
+import { getNumbers } from "~/utils/getNumbers"
 
 import EpisodeButton from "~/components/EpisodeButton"
-import { getNumbers } from "~/utils/getNumbers"
 
 interface Props {
   episodes: string[]
@@ -16,7 +17,11 @@ const EpisodesList = ({ episodes, handlePress }: Props) => {
       renderItem={({ item }) => (
         <EpisodeButton
           number={getNumbers(item)}
-          onPress={() => handlePress(item)}
+          onPress={() =>
+            handlePress(item).catch((err) => {
+              errorHandler(err.message)
+            })
+          }
         />
       )}
       data={episodes}

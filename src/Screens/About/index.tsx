@@ -16,6 +16,7 @@ import EpisodesList from "./components/EpisodesList"
 import Descriptions from "./components/Descriptions"
 import EpisodeModal from "./components/EpisodeModal"
 import TitleContainer from "~/components/TitleContainer"
+import { errorHandler } from "~/utils/errorHandler"
 
 interface ScreenProps {
   route: { params: { id: number } }
@@ -33,7 +34,12 @@ export default function About({ route }: ScreenProps) {
   const tryGetEpisodeData = async (url: string) => {
     try {
       loading.enable()
-      await handleGetEpisodeData(url)
+
+      const { episodeData, characters } = await handleGetEpisodeData(url)
+
+      setEpisodeData(episodeData)
+      setCharacters(characters)
+      setIsShowingModal(true)
     } catch (error) {
       throw new Error(error as keyof Error)
     } finally {
@@ -47,9 +53,11 @@ export default function About({ route }: ScreenProps) {
     const characters = await Promise.all(
       data.characters.map((url) => getCharById(getNumbers(url)))
     )
-    setEpisodeData(data)
-    setCharacters(characters)
-    setIsShowingModal(true)
+
+    return {
+      episodeData: data,
+      characters,
+    }
   }
 
   const handleAddToFavorites = () => {
@@ -60,7 +68,7 @@ export default function About({ route }: ScreenProps) {
   useEffect(() => {
     getCharById(route.params.id.toString())
       .then(setAboutChar)
-      .catch(console.log)
+      .catch((err) => errorHandler(err.message))
   }, [])
 
   if (!aboutChar) return <Loading />
