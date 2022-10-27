@@ -1,14 +1,17 @@
 import React from "react"
 import { FlatList, View } from "react-native"
+import useNavigation from "~/hooks/useNavigation"
 import { Result } from "~/services/characters/types"
-import CharacterCard from "./CharacterCard"
+import CharacterCard from "../components/CharacterCard"
 
 interface Props {
-  handleNavigate: (id: number) => void
   characters: Result[]
 }
 
-const CharactersList = ({ characters, handleNavigate }: Props) => {
+const CharactersList = ({ characters }: Props) => {
+  const { handleNavigate } = useNavigation()
+  const navigate = (id: number) => handleNavigate("Sobre", { id })
+
   return (
     <FlatList
       ItemSeparatorComponent={() => <View style={{ marginVertical: 6 }} />}
@@ -18,7 +21,7 @@ const CharactersList = ({ characters, handleNavigate }: Props) => {
           status={item.status}
           gender={item.gender}
           uri={item.image}
-          onPress={() => handleNavigate(item.id)}
+          onPress={() => navigate(item.id)}
         />
       )}
       data={characters}

@@ -9,6 +9,7 @@ import {
 } from "react-native"
 import Border from "~/components/Border"
 import { COLORS } from "~/globals/style"
+import { wrapText } from "~/utils/wrapText"
 
 interface Props extends TouchableOpacityProps {
   name: string
@@ -50,7 +51,7 @@ const CharacterCard = ({ name, status, gender, uri, ...rest }: Props) => {
   return (
     <TouchableOpacity style={styles.container} {...rest}>
       <View style={styles.contentContainer}>
-        <Text style={styles.title}>{name}</Text>
+        <Text style={styles.title}>{wrapText(name)}</Text>
         <Border>{status}</Border>
         <View style={{ marginBottom: 10 }} />
         <Border>{gender}</Border>
