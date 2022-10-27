@@ -4,6 +4,7 @@ import type { StackNavigationProp } from "@react-navigation/stack"
 export type StackParamsList = {
   Inicio: undefined
   Sobre: { id: number } | undefined
+  Favoritos: undefined
 }
 
 export type HookNavigationProp = CompositeNavigationProp<

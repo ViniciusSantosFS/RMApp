@@ -1,11 +1,16 @@
 import * as React from "react"
+
 import { NavigationContainer } from "@react-navigation/native"
-import { createNativeStackNavigator } from "@react-navigation/native-stack"
+import {
+  createNativeStackNavigator,
+  NativeStackNavigationOptions,
+} from "@react-navigation/native-stack"
+import { COLORS } from "~/globals/style"
 
 import Home from "../Screens/Home"
 import About from "~/Screens/About"
-import { COLORS } from "~/globals/style"
-import FavoriteIcon from "~/components/FavoriteIcon"
+import FavoriteNavigationIcon from "~/Containers/FavoriteNavigationIcon"
+import Favorites from "~/Screens/Favorites"
 
 const Stack = createNativeStackNavigator()
 
@@ -19,15 +24,17 @@ const screenOptions = {
   },
   headerTitleAlign: "center",
 
-  headerRight: () => <FavoriteIcon isFavorite />,
-}
+  headerRight: () => <FavoriteNavigationIcon />,
+} as NativeStackNavigationOptions
 
 export default function Router() {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={screenOptions}>
         <Stack.Screen name="Inicio" component={Home} />
+        {/* @ts-ignore */}
         <Stack.Screen name="Sobre" component={About} />
+        <Stack.Screen name="Favoritos" component={Favorites} />
       </Stack.Navigator>
     </NavigationContainer>
   )
