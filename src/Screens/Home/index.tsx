@@ -4,18 +4,15 @@ import { getChars } from "~/services/characters/characters"
 import { Info, Result } from "~/services/characters/types"
 import { LoadingContext } from "~/contexts/LoadingContext"
 
-import useNavigation from "~/hooks/useNavigation"
-
 import Container from "~/components/Container"
 import Pagination from "~/components/Pagination"
 import SearchBar from "~/components/SearchBar"
 import Title from "~/components/Title"
-import CharactersList from "./Components/CharactersList"
+import CharactersList from "~/Containers/CharactersList"
 import useIsKeyboardOpen from "~/hooks/useIsKeyboardOpen"
 
 export default function Home() {
   const loading = useContext(LoadingContext)
-  const { handleNavigate } = useNavigation()
   const isKeyboardOpen = useIsKeyboardOpen()
 
   const [characters, setCharacters] = useState<Result[]>([])
@@ -23,7 +20,6 @@ export default function Home() {
   const [currentInfo, setCurrentInfo] = useState<Info | null>()
   const [page, setPage] = useState(1)
 
-  const navigate = (id: number) => handleNavigate("Sobre", { id })
   const handleIncrementPage = () => {
     currentInfo && page < currentInfo.pages && setPage(page + 1)
   }
@@ -70,7 +66,6 @@ export default function Home() {
 
       <CharactersList
         characters={filteredChars.length > 0 ? filteredChars : characters}
-        handleNavigate={navigate}
       />
 
       {isKeyboardOpen ? (
