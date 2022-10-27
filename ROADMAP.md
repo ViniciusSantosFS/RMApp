@@ -30,5 +30,5 @@
 ##### Sugestões:
 
 - Gostei bastante do desafio, principalmente por conta do tema e a possibilidade de escolha de testes
-- Refletiria sobre a data de envio do desafio, poderia ser no final do dia de uma sexta feira, pois assim o desenvolvedor teria mais tempo livre para
+- Refletiria sobre a data de inicio do desafio, poderia ser no final do dia de uma sexta feira, pois assim o desenvolvedor teria mais tempo livre para
   se dedicar aos desafios
