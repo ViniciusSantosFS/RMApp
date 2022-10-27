@@ -1,5 +1,3 @@
-- Realizar prints das telas
-
 #### Veja todas as imagens em /assets/prints/
 
 ![Overview](./assets/prints/overview.gif)
