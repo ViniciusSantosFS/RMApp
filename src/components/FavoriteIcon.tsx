@@ -9,7 +9,7 @@ const FavoriteIcon = ({ isFavorite }: Props) => {
   return isFavorite ? (
     <AntDesign name="star" size={24} color={COLORS.yellow} />
   ) : (
-    <AntDesign name="staro" size={24} color={COLORS.white} />
+    <AntDesign name="staro" size={24} color={COLORS.darkBlue} />
   )
 }
 
