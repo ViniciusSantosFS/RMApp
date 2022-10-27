@@ -5,6 +5,7 @@ import { getCharById } from "~/services/characters/characters"
 import { getNumbers } from "~/utils/getNumbers"
 import { EpisodeData, Result } from "~/services/characters/types"
 import { LoadingContext } from "~/contexts/LoadingContext"
+import { FavoritesContext } from "~/contexts/FavoriteListContext"
 import axios from "~/services/instance"
 
 import Container from "~/components/Container"
@@ -14,6 +15,7 @@ import Profile from "./components/Profile"
 import EpisodesList from "./components/EpisodesList"
 import Descriptions from "./components/Descriptions"
 import EpisodeModal from "./components/EpisodeModal"
+import TitleContainer from "~/components/TitleContainer"
 
 interface ScreenProps {
   route: { params: { id: number } }
@@ -21,6 +23,7 @@ interface ScreenProps {
 
 export default function About({ route }: ScreenProps) {
   const loading = useContext(LoadingContext)
+  const [favorites, setFavorites] = useContext(FavoritesContext)
 
   const [aboutChar, setAboutChar] = useState<Result>()
   const [episodeData, setEpisodeData] = useState<EpisodeData>()
@@ -49,6 +52,15 @@ export default function About({ route }: ScreenProps) {
     setIsShowingModal(true)
   }
 
+  const handleAddToFavorites = () => {
+    if (!aboutChar) return
+    setFavorites([...favorites, aboutChar])
+  }
+
+  const isFavoriteChar = () => {
+    return Boolean(favorites.find(({ id }) => id === aboutChar?.id))
+  }
+
   useEffect(() => {
     getCharById(route.params.id.toString())
       .then(setAboutChar)
@@ -68,7 +80,12 @@ export default function About({ route }: ScreenProps) {
         onRequestClose={() => setIsShowingModal(false)}
       />
       <View style={{ marginTop: 20 }} />
-      <Title>{aboutChar.name}</Title>
+
+      <TitleContainer
+        name={aboutChar.name}
+        isFavorite={isFavoriteChar()}
+        onPress={handleAddToFavorites}
+      />
 
       <View style={{ marginTop: 30 }}>
         <Profile
