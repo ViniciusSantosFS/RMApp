@@ -23,7 +23,7 @@ interface ScreenProps {
 
 export default function About({ route }: ScreenProps) {
   const loading = useContext(LoadingContext)
-  const [favorites, setFavorites] = useContext(FavoritesContext)
+  const { isFavoriteChar, push } = useContext(FavoritesContext)
 
   const [aboutChar, setAboutChar] = useState<Result>()
   const [episodeData, setEpisodeData] = useState<EpisodeData>()
@@ -54,11 +54,7 @@ export default function About({ route }: ScreenProps) {
 
   const handleAddToFavorites = () => {
     if (!aboutChar) return
-    setFavorites([...favorites, aboutChar])
-  }
-
-  const isFavoriteChar = () => {
-    return Boolean(favorites.find(({ id }) => id === aboutChar?.id))
+    push(aboutChar)
   }
 
   useEffect(() => {
@@ -83,7 +79,7 @@ export default function About({ route }: ScreenProps) {
 
       <TitleContainer
         name={aboutChar.name}
-        isFavorite={isFavoriteChar()}
+        isFavorite={isFavoriteChar(aboutChar.id)}
         onPress={handleAddToFavorites}
       />
 
