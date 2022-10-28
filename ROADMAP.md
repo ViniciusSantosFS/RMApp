@@ -26,9 +26,3 @@
 - Melhoraria as nomenclaturas do código
 - Melhoraria a semântica do código
 - Diminuiria a quantidade de componentes nas telas da aplicação transformando suas partes em outros componentes
-
-##### Sugestões:
-
-- Gostei bastante do desafio, principalmente por conta do tema e a possibilidade de escolha de testes
-- Refletiria sobre a data de inicio do desafio, poderia ser no final do dia de uma sexta feira, pois assim o desenvolvedor teria mais tempo livre para
-  se dedicar aos desafios
